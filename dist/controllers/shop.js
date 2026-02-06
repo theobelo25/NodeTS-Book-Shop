@@ -13,25 +13,25 @@ const Order_1 = __importDefault(require("../models/Order"));
 const mongodb_1 = require("mongodb");
 const handleError_1 = require("../middleware/handleError");
 const mongoose_1 = require("mongoose");
-const ITEMS_PER_PAGE = 2;
+const constants_1 = require("../util/constants");
 const getIndex = async (req, res, next) => {
     const { page } = req.query;
     const pageNum = Number(page) || 1;
     try {
         const numProducts = await Product_1.default.find().countDocuments();
         const products = await Product_1.default.find()
-            .skip((pageNum - 1) * ITEMS_PER_PAGE)
-            .limit(ITEMS_PER_PAGE);
+            .skip((pageNum - 1) * constants_1.ITEMS_PER_PAGE)
+            .limit(constants_1.ITEMS_PER_PAGE);
         res.render("shop/index", {
             pageTitle: "Shop",
             products: products,
             path: "/",
             currentPage: pageNum,
-            hasNextPage: ITEMS_PER_PAGE * pageNum < numProducts,
+            hasNextPage: constants_1.ITEMS_PER_PAGE * pageNum < numProducts,
             hasPreviousPage: pageNum > 1,
             nextPage: pageNum + 1,
             previousPage: pageNum - 1,
-            lastPage: Math.ceil(numProducts / ITEMS_PER_PAGE),
+            lastPage: Math.ceil(numProducts / constants_1.ITEMS_PER_PAGE),
         });
     }
     catch (error) {
@@ -45,18 +45,18 @@ const getProducts = async (req, res, next) => {
     try {
         const numProducts = await Product_1.default.find().countDocuments();
         const products = await Product_1.default.find()
-            .skip((pageNum - 1) * ITEMS_PER_PAGE)
-            .limit(ITEMS_PER_PAGE);
+            .skip((pageNum - 1) * constants_1.ITEMS_PER_PAGE)
+            .limit(constants_1.ITEMS_PER_PAGE);
         res.render("shop/product-list", {
             pageTitle: "Shop",
             products,
             path: "/",
             currentPage: pageNum,
-            hasNextPage: ITEMS_PER_PAGE * pageNum < numProducts,
+            hasNextPage: constants_1.ITEMS_PER_PAGE * pageNum < numProducts,
             hasPreviousPage: pageNum > 1,
             nextPage: pageNum + 1,
             previousPage: pageNum - 1,
-            lastPage: Math.ceil(numProducts / ITEMS_PER_PAGE),
+            lastPage: Math.ceil(numProducts / constants_1.ITEMS_PER_PAGE),
         });
     }
     catch (error) {

@@ -8,25 +8,25 @@ const express_validator_1 = require("express-validator");
 const Product_1 = __importDefault(require("../models/Product"));
 const handleError_1 = require("../middleware/handleError");
 const file_1 = require("../util/file");
-const ITEMS_PER_PAGE = 2;
+const constants_1 = require("../util/constants");
 const getProducts = async (req, res, next) => {
     const { page } = req.query;
     const pageNum = Number(page) || 1;
     try {
         const numProducts = await Product_1.default.find().countDocuments();
         const products = await Product_1.default.find({ userId: req.user?._id })
-            .skip((pageNum - 1) * ITEMS_PER_PAGE)
-            .limit(ITEMS_PER_PAGE);
+            .skip((pageNum - 1) * constants_1.ITEMS_PER_PAGE)
+            .limit(constants_1.ITEMS_PER_PAGE);
         res.render("admin/products", {
             pageTitle: "Admin Products",
             products,
             path: "/admin/products",
             currentPage: pageNum,
-            hasNextPage: ITEMS_PER_PAGE * pageNum < numProducts,
+            hasNextPage: constants_1.ITEMS_PER_PAGE * pageNum < numProducts,
             hasPreviousPage: pageNum > 1,
             nextPage: pageNum + 1,
             previousPage: pageNum - 1,
-            lastPage: Math.ceil(numProducts / ITEMS_PER_PAGE),
+            lastPage: Math.ceil(numProducts / constants_1.ITEMS_PER_PAGE),
         });
     }
     catch (error) {
