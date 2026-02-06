@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">=20.0.0 <22.0.0"
+  },
   "scripts": {
     "build": "tsc",
     "copy": "copyfiles --up 1 \"src/views/**/*\" dist && copyfiles --up 1 \"src/public/**/*\" dist",
