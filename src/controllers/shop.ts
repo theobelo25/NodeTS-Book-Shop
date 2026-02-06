@@ -10,8 +10,7 @@ import { ObjectId } from "mongodb";
 import { getError } from "../middleware/handleError";
 import { Types } from "mongoose";
 import Stripe from "stripe";
-
-const ITEMS_PER_PAGE = 2;
+import { ITEMS_PER_PAGE } from "../util/constants";
 
 export const getIndex = async (
   req: Request,

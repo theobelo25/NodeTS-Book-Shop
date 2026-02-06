@@ -4,8 +4,7 @@ import { validationResult } from "express-validator";
 import Product from "../models/Product";
 import { getError } from "../middleware/handleError";
 import { deleteFile } from "../util/file";
-
-const ITEMS_PER_PAGE = 2;
+import { ITEMS_PER_PAGE } from "../util/constants";
 
 export const getProducts = async (
   req: Request,
